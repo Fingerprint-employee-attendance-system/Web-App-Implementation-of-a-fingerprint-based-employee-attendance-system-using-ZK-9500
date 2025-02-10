@@ -1,6 +1,7 @@
 # Implementation-of-a-fingerprint-based-employee-attendance-system-using-ZK-9500  
 This project is a multi-platform employee attendance system that uses fingerprint authentication with the ZK 9500 fingerprint scanner.  
-[📊 View the Google Slides Presentation](https://docs.google.com/presentation/d/e/2PACX-1vQryQA69CA-fxBod89roYTb_cmPlB099sL7KjzNkK-0UA-dAgpMs3sQS7E0TVdPkjEAB_kT1WvML29I/pub?start=false&loop=false&delayms=3000).  
+<a href="https://docs.google.com/presentation/d/e/2PACX-1vQryQA69CA-fxBod89roYTb_cmPlB099sL7KjzNkK-0UA-dAgpMs3sQS7E0TVdPkjEAB_kT1WvML29I/pub?start=false&loop=false&delayms=3000" target="_blank">📊 View the Google Slides Presentation</a>
+    
 ✅ Database – Stores employee records and attendance logs.  
 
 ✅ Mobile App – Allows Admins to check in/out using fingerprint verification.  
