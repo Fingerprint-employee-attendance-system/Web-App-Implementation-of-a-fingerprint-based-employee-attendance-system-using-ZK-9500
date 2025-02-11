@@ -1,0 +1,56 @@
+.admin {
+  display: flex;
+  
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+  background-color: #111; /* Add a background color for better visibility */
+  padding: 20px; /* Add padding to the container */
+  height: 100%; /* Set height to 100% */
+}
+
+.admin h2 {
+  font-size: 2em;
+  color: #fff;
+}
+
+.admin .adminBx {
+  width: 100%;
+}
+
+.admin .adminBx input {
+  width: 100%;
+  padding: 12px 20px;
+  background: transparent;
+  border: 2px solid #fff;
+  border-radius: 40px;
+  font-size: 1.2em;
+  color: #fff;
+  box-shadow: none;
+  outline: none;
+}
+
+.admin .adminBx input[type="submit"] {
+  width: 100%;
+  background: #0078ff;
+  background: linear-gradient(45deg, #27dffd, #0C0FDF);
+  border: none;
+  cursor: pointer;
+}
+
+.admin .adminBx input::placeholder {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.admin .links {
+  width: 100%; /* Adjusted width for better responsiveness */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px; /* Add padding to the links container */
+}
+
+.admin .links a {
+  color: #fff;
+  text-decoration: none;
+}

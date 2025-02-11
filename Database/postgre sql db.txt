@@ -1,0 +1,132 @@
+1. create script:
+
+
+-- Database: fingerprintdb
+
+-- DROP DATABASE IF EXISTS fingerprintdb;
+
+CREATE DATABASE fingerprintdb
+    WITH
+    OWNER = postgres
+    ENCODING = 'UTF8'
+    LC_COLLATE = 'English_United States.1252'
+    LC_CTYPE = 'English_United States.1252'
+    TABLESPACE = pg_default
+    CONNECTION LIMIT = 5
+    IS_TEMPLATE = False;
+
+COMMENT ON DATABASE fingerprintdb
+    IS 'postgres';
+
+GRANT TEMPORARY, CONNECT ON DATABASE fingerprintdb TO PUBLIC;
+
+GRANT ALL ON DATABASE fingerprintdb TO dbadmin;
+
+GRANT ALL ON DATABASE fingerprintdb TO postgres;
+
+
+
+2.create admins:
+
+
+-- Table: public.admins
+
+-- DROP TABLE IF EXISTS public.admins;
+
+CREATE TABLE IF NOT EXISTS public.admins
+(
+    id integer NOT NULL DEFAULT nextval('admins_seq'::regclass),
+    username character varying(50) COLLATE pg_catalog."default" NOT NULL,
+    password_hash character varying(100) COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT admins_pkey PRIMARY KEY (id),
+    CONSTRAINT admins_username_key UNIQUE (username)
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.admins
+    OWNER to postgres;
+
+
+3. create employee:
+
+-- Table: public.employees
+
+-- DROP TABLE IF EXISTS public.employees;
+
+CREATE TABLE IF NOT EXISTS public.employees
+(
+    user_id integer NOT NULL DEFAULT nextval('employees_seq'::regclass),
+    user_name character varying(50) COLLATE pg_catalog."default" NOT NULL,
+    template_data bytea NOT NULL,
+    CONSTRAINT employees_pkey PRIMARY KEY (user_id)
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.employees
+    OWNER to postgres;
+
+
+4.create timing:
+
+
+-- Table: public.timing
+
+-- DROP TABLE IF EXISTS public.timing;
+
+CREATE TABLE IF NOT EXISTS public.timing
+(
+    user_id integer NOT NULL,
+    user_day date NOT NULL,
+    user_in time without time zone,
+    user_out time without time zone,
+    CONSTRAINT timing_pkey PRIMARY KEY (user_id, user_day),
+    CONSTRAINT timing_user_id_fkey FOREIGN KEY (user_id)
+        REFERENCES public.employees (user_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.timing
+    OWNER to postgres;
+
+
+
+5. create soquance admins:
+
+
+-- SEQUENCE: public.admins_seq
+
+-- DROP SEQUENCE IF EXISTS public.admins_seq;
+
+CREATE SEQUENCE IF NOT EXISTS public.admins_seq
+    INCREMENT 50
+    START 1
+    MINVALUE 1
+    MAXVALUE 2147483647
+    CACHE 1
+    OWNED BY admins.id;
+
+ALTER SEQUENCE public.admins_seq
+    OWNER TO postgres;
+
+
+6.create employee sequance:
+
+-- SEQUENCE: public.employees_seq
+
+-- DROP SEQUENCE IF EXISTS public.employees_seq;
+
+CREATE SEQUENCE IF NOT EXISTS public.employees_seq
+    INCREMENT 50
+    START 1
+    MINVALUE 1
+    MAXVALUE 2147483647
+    CACHE 1
+    OWNED BY employees.user_id;
+
+ALTER SEQUENCE public.employees_seq
+    OWNER TO postgres;
