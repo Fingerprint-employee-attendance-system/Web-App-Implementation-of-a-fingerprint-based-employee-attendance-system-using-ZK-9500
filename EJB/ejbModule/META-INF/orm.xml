@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="http://www.eclipse.org/eclipselink/xsds/persistence/orm"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://www.eclipse.org/eclipselink/xsds/persistence/orm http://www.eclipse.org/eclipselink/xsds/eclipselink_orm_2_2.xsd"
+                  version="2.2">
+
+<!-- Admin Entity Mapping -->
+    <entity class="bean.Admin">
+        <table name="admins"/>
+        <attributes>
+            <id name="adminId" attribute-type="Integer">
+                <column name="id" length="50" />
+                <generated-value strategy="AUTO"/>
+            </id>
+            <basic name="passwordHash" attribute-type="String">
+                <column name="password_hash" length="100" nullable="false"/>
+            </basic>
+            <basic name="username" attribute-type="String">
+                <column name="username" length="50" nullable="false"/>
+            </basic>
+        </attributes>
+    </entity>
+    
+    <!-- Employee Entity Mapping -->
+    <entity class="bean.Employee">
+        <table name="employees"/>
+        <attributes>
+            <id name="userId" attribute-type="Integer">
+                <column name="user_id" length="50"/>
+                <generated-value strategy="AUTO"/>
+            </id>
+            <basic name="templateData" attribute-type="byte[]">
+                <column name="template_data" nullable="false"/>
+            </basic>
+            <basic name="userName" attribute-type="String">
+                <column name="user_name" length="50" nullable="false"/>
+            </basic>
+            <one-to-many name="timings" mapped-by="employee" target-entity="bean.Timing"/>
+        </attributes>
+    </entity>
+
+    <!-- Timing Entity Mapping -->
+    <entity class="bean.Timing">
+        <attributes>
+            <embedded-id name="id" attribute-type="bean.TimingPK"/>
+            <basic name="userIn" attribute-type="java.sql.Time">
+                <column name="user_in"/>
+            </basic>
+            <basic name="userOut" attribute-type="java.sql.Time">
+                <column name="user_out"/>
+            </basic>
+            <many-to-one name="employee" target-entity="bean.Employee">
+                <join-column name="user_id" nullable="false" insertable="false" updatable="false"/>
+            </many-to-one>
+        </attributes>
+    </entity>
+
+    <!-- TimingPK Embeddable Mapping -->
+    <embeddable class="bean.TimingPK">
+        <attributes>
+            <basic name="userId" attribute-type="Integer">
+                <column name="user_id" insertable="false" updatable="false" nullable="false"/>
+            </basic>
+            <basic name="userDay" attribute-type="java.util.Date">
+            <column name="user_day" nullable="false"/>
+            <temporal>DATE</temporal>
+           
+            </basic>
+        </attributes>
+    </embeddable>
+
+</entity-mappings>

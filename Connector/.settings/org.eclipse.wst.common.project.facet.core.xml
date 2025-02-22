@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faceted-project>
+  <runtime name="WildFly 27.0 Runtime"/>
+  <fixed facet="java"/>
+  <fixed facet="jst.connector"/>
+  <installed facet="java" version="11"/>
+  <installed facet="jst.connector" version="1.7"/>
+</faceted-project>
